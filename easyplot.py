@@ -44,7 +44,9 @@ class EasyPlot(object):
             loc : Location of legend box in plot, default = 'best'
             numpoints : number of markers in legend, default = 1.0
             color / c : Color of line plot, overrides format string in *args if
-                    supplied. Accepts any valid matplotlib color
+                        supplied. Accepts any valid matplotlib color
+            colorcycle / cs: Set plot colorcycle to list of valid matplotlib
+                             colors
             fontsize : Global fontsize for all plots
         """
         self._default_kwargs = {'fig': None,
@@ -58,7 +60,8 @@ class EasyPlot(object):
                                 'numpoints': 1
                                }
         self.kwargs = self._default_kwargs.copy()
-                       
+        
+        # Dictionary of plot parameter aliases               
         self.alias_dict = {'lw': 'linewidth', 'ls': 'linestyle', 
                            'mfc': 'markerfacecolor', 'mew': 'markeredgewidth', 
                            'mec': 'markeredgecolor', 'ms': 'markersize',
@@ -67,14 +70,17 @@ class EasyPlot(object):
         self.plot_kwargs = ['label', 'linewidth', 'linestyle', 'marker',
                             'markerfacecolor', 'markeredgewidth', 'markersize',
                             'markeredgecolor', 'markevery', 'alpha']
-                            
-        self._uniqueparams = ['color', 'label', 'linestyle', 'marker']
+        
+        # Parameters that should only be passed to the plot once                    
+        self._uniqueparams = ['color', 'label', 'linestyle', 'marker',
+                              'colorcycle']
                             
         self._ax_funcs = {'xlabel': 'set_xlabel',
                          'ylabel': 'set_ylabel',
                          'xlim': 'set_xlim',
                          'ylim': 'set_ylim',
-                         'title': 'set_title'}
+                         'title': 'set_title',
+                         'colorcycle': 'set_color_cycle'}
                          
         self.kwargs = self._default_kwargs.copy() #Prevent mutating dictionary
         self.args = []
