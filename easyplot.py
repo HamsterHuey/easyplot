@@ -39,6 +39,10 @@ class EasyPlot(object):
             ylabel : Y-axis label, string
             xlim : X-axis limits - tuple. eg: xlim=(0,10). Set to None for auto
             ylim : Y-axis limits - tuple. eg: ylim=(0,10). Set to None for auto
+            xscale : Set x axis scale ['linear'|'log'|'symlog']
+            yscale : Set y axis scale ['linear'|'log'|'symlog']
+                Only supports basic xscale/yscale functionality. Use 
+                get_axes().set_xscale() if further customization is required
             grid : Display axes grid. ['on'|'off']. See grid() for more options
             showlegend : set to True to display legend
             framealpha : Legend box opacity (0 - 1.0), default = 1.0
@@ -82,7 +86,8 @@ class EasyPlot(object):
                          'ylim': 'set_ylim',
                          'title': 'set_title',
                          'colorcycle': 'set_color_cycle',
-                         'grid': 'grid'}
+                         'grid': 'grid', 'xscale': 'set_xscale',
+                         'yscale': 'set_yscale'}
                          
         self.kwargs = self._default_kwargs.copy() #Prevent mutating dictionary
         self.args = []
