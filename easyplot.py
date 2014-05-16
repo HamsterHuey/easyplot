@@ -71,15 +71,16 @@ class EasyPlot(object):
                            'mfc': 'markerfacecolor', 'mew': 'markeredgewidth', 
                            'mec': 'markeredgecolor', 'ms': 'markersize',
                            'mev': 'markevery', 'c': 'color', 'fs': 'fontsize'}
-                           
+        
+        # List of all named plot parameters passable to plot method                   
         self.plot_kwargs = ['label', 'linewidth', 'linestyle', 'marker',
                             'markerfacecolor', 'markeredgewidth', 'markersize',
                             'markeredgecolor', 'markevery', 'alpha']
         
-        # Parameters that should only be passed to the plot once                    
+        # Parameters that should only be passed to the plot once, then reset                 
         self._uniqueparams = ['color', 'label', 'linestyle', 'marker',
                               'colorcycle']
-                            
+        # Mapping between plot parameter and corresponding axes function to call                  
         self._ax_funcs = {'xlabel': 'set_xlabel',
                          'ylabel': 'set_ylabel',
                          'xlim': 'set_xlim',
@@ -103,8 +104,8 @@ class EasyPlot(object):
         self.line_list. 
         Arguments
         =========
-            *args : Support for plot(y), plot(x, y), plot(x, y, 'b-'). x, y and
-                    format string are passed through for plotting
+            *args : Supports format plot(y), plot(x, y), plot(x, y, 'b-'). x, y 
+                    and format string are passed through for plotting
             **kwargs : Plot parameters. Refer to __init__ docstring for details
         """
         self._update(*args, **kwargs)
@@ -112,7 +113,6 @@ class EasyPlot(object):
         # Create figure and axes if needed
         if self.kwargs['fig'] is None:
             self.kwargs['fig'] = plt.figure(figsize=self.kwargs['figsize'])
-#            if self.kwargs['ax'] is None:
             self.kwargs['ax'] = plt.gca()
             self.kwargs['fig'].add_axes(self.kwargs['ax'])
 
@@ -156,7 +156,6 @@ class EasyPlot(object):
         
         Usage:
             a = ConvenientPlot([1,2,3], [2,4,8], 'r-o', label='label 1')
-            a.plot() # Plots graph
             # Update title and xlabel string and redraw plot
             a.update_plot(title='Title', xlabel='xlabel')
         """
@@ -164,7 +163,7 @@ class EasyPlot(object):
         
     def new_plot(self, *args, **kwargs):
         """
-        Plot new plot using Convenience Plot object and default parameters
+        Plot new plot using Convenience Plot object and default plot parameters
         
         Pass a named argument reset=True if all plotting parameters should
         be reset to original defaults
@@ -190,6 +189,7 @@ class EasyPlot(object):
         """
         ax = self.get_axes()
         ax.autoscale(enable=enable, axis=axis, tight=tight)
+        # Reset xlim and ylim parameters to None if previously set to some value
         if 'xlim' in self.kwargs and (axis=='x' or axis=='both'):
             self.kwargs.pop('xlim') 
         if 'ylim' in self.kwargs and (axis=='y' or axis=='both'):
@@ -203,6 +203,7 @@ class EasyPlot(object):
         **kwargs are passed to linespec of grid lines (eg: linewidth=2)
         """
         self.get_axes().grid(**kwargs)
+        self.redraw()
 
     def get_figure(self):
         """Returns figure instance of current plot"""
@@ -214,7 +215,7 @@ class EasyPlot(object):
         
     def redraw(self):
         """
-        Redraw plot. Use after custom user modifications of axis & fig objects
+        Redraw plot. Use after custom user modifications of axes & fig objects
         """
         fig = self.kwargs['fig']
         #Redraw figure if it was previously closed prior to updating it
@@ -282,6 +283,7 @@ class EasyPlot(object):
             self.isnewargs = True
         else:
             self.isnewargs = False
+
         # Update self.kwargs with full parameter name of aliased plot parameter
         for alias in self.alias_dict:
             if alias in kwargs:
