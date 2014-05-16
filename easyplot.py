@@ -39,6 +39,7 @@ class EasyPlot(object):
             ylabel : Y-axis label, string
             xlim : X-axis limits - tuple. eg: xlim=(0,10). Set to None for auto
             ylim : Y-axis limits - tuple. eg: ylim=(0,10). Set to None for auto
+            grid : Display axes grid. ['on'|'off']. See grid() for more options
             showlegend : set to True to display legend
             framealpha : Legend box opacity (0 - 1.0), default = 1.0
             loc : Location of legend box in plot, default = 'best'
@@ -80,7 +81,8 @@ class EasyPlot(object):
                          'xlim': 'set_xlim',
                          'ylim': 'set_ylim',
                          'title': 'set_title',
-                         'colorcycle': 'set_color_cycle'}
+                         'colorcycle': 'set_color_cycle',
+                         'grid': 'grid'}
                          
         self.kwargs = self._default_kwargs.copy() #Prevent mutating dictionary
         self.args = []
@@ -183,8 +185,20 @@ class EasyPlot(object):
         """
         ax = self.get_axes()
         ax.autoscale(enable=enable, axis=axis, tight=tight)
+        if 'xlim' in self.kwargs and (axis=='x' or axis=='both'):
+            self.kwargs.pop('xlim') 
+        if 'ylim' in self.kwargs and (axis=='y' or axis=='both'):
+            self.kwargs.pop('ylim')
         self.redraw()
-        
+
+    def grid(self, **kwargs):
+        """Turn axes grid on or off
+
+        Call signature: grid(self, b=None, which='major', axis='both', **kwargs)
+        **kwargs are passed to linespec of grid lines (eg: linewidth=2)
+        """
+        self.get_axes().grid(**kwargs)
+
     def get_figure(self):
         """Returns figure instance of current plot"""
         return self.kwargs['fig']
