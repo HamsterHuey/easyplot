@@ -118,7 +118,13 @@ class EasyPlot(object):
 
         ax, fig = self.kwargs['ax'], self.kwargs['fig']
         
-        
+        # Apply axes functions if present in kwargs
+        for kwarg in self.kwargs:
+            if kwarg in self._ax_funcs:
+                # eg: f = getattr(ax,'set_title'); f('new title')
+                func = getattr(ax, self._ax_funcs[kwarg])
+                func(self.kwargs[kwarg])
+
         # Add plot only if new args passed to this instance
         if self.isnewargs:
             # Create updated name, value dict to pass to plot method
@@ -130,13 +136,6 @@ class EasyPlot(object):
             line, = ax.plot(*self.args, **plot_kwargs)
             self.line_list.append(line)            
           
-        # Apply axes functions if present in kwargs
-        for kwarg in self.kwargs:
-            if kwarg in self._ax_funcs:
-                # eg: f = getattr(ax,'set_title'); f('new title')
-                func = getattr(ax, self._ax_funcs[kwarg])
-                func(self.kwargs[kwarg])
-           
         # Display legend if required
         if self.kwargs['showlegend']:
             leg = ax.legend(fancybox=self.kwargs['fancybox'],
