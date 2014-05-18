@@ -76,10 +76,12 @@ class EasyPlot(object):
         self.plot_kwargs = ['label', 'linewidth', 'linestyle', 'marker',
                             'markerfacecolor', 'markeredgewidth', 'markersize',
                             'markeredgecolor', 'markevery', 'alpha']
-        
+
         # Parameters that should only be passed to the plot once, then reset                 
         self._uniqueparams = ['color', 'label', 'linestyle', 'marker',
                               'colorcycle']
+
+        self._colorcycle = []
         # Mapping between plot parameter and corresponding axes function to call                  
         self._ax_funcs = {'xlabel': 'set_xlabel',
                          'ylabel': 'set_ylabel',
@@ -124,7 +126,6 @@ class EasyPlot(object):
                 # eg: f = getattr(ax,'set_title'); f('new title')
                 func = getattr(ax, self._ax_funcs[kwarg])
                 func(self.kwargs[kwarg])
-
         # Add plot only if new args passed to this instance
         if self.isnewargs:
             # Create updated name, value dict to pass to plot method
@@ -154,7 +155,7 @@ class EasyPlot(object):
         """"Update plot parameters (keyword arguments) and replot figure
         
         Usage:
-            a = ConvenientPlot([1,2,3], [2,4,8], 'r-o', label='label 1')
+            a = EasyPlot([1,2,3], [2,4,8], 'r-o', label='label 1')
             # Update title and xlabel string and redraw plot
             a.update_plot(title='Title', xlabel='xlabel')
         """
@@ -162,15 +163,15 @@ class EasyPlot(object):
         
     def new_plot(self, *args, **kwargs):
         """
-        Plot new plot using Convenience Plot object and default plot parameters
+        Plot new plot using EasyPlot object and default plot parameters
         
         Pass a named argument reset=True if all plotting parameters should
         be reset to original defaults
         """
         reset = kwargs['reset'] if 'reset' in kwargs else False
         self._reset(reset=reset)
-        self.kwargs['fig'] = None
-        self.kwargs['ax'] = None
+        if self._colorcycle:
+            self.kwargs['colorcycle'] = self._colorcycle
         self.add_plot(*args, **kwargs)
     
     def autoscale(self, enable=True, axis='both', tight=None):
@@ -227,6 +228,7 @@ class EasyPlot(object):
         """ Updates global font size for all plot elements"""
         mpl.rcParams['font.size'] = font_size
         self.redraw()
+        #TODO: Implement individual font size setting
 #        params = {'font.family': 'serif',
 #          'font.size': 16,
 #          'axes.labelsize': 18,
@@ -237,24 +239,6 @@ class EasyPlot(object):
 #          'text.usetex': True}
 #        mpl.rcParams.update(params)
     
-#    def reset_params(self, *args):
-#        """
-#        Reset list of supplied plot parameters to defaults
-#            *args : Comma separated list of strings with plot parameter names
-#        Usage:
-#            easyplotobj.reset_params('title', 'linestyle', 'lw')
-#        """
-#        arglist = list(args)  # Convert args tuple to list
-#        # Replace aliased plot parameters in args with full parameter name
-#        for alias in self.alias_dict:
-#            if alias in arglist:
-#                arglist[arglist.index(alias)] = self.alias_dict[alias]
-#                
-#        # Delete parameters from self.kwargs
-#        for param in arglist:
-#            if param not in self._default_kwargs:
-#                self.kwargs.pop(param, None)
-                
 #    def set_font(self, family=None, weight=None, size=None):
 #        """ Updates global font properties for all plot elements
 #        
@@ -272,6 +256,10 @@ class EasyPlot(object):
         """Delete plot parameters that are unique per plot
         
         Prevents unique parameters (eg: label) carrying over to future plots"""
+        # Store colorcycle list prior to deleting from this instance
+        if 'colorcycle' in self.kwargs:
+            self._colorcycle = self.kwargs['colorcycle']
+
         for param in self._uniqueparams:
             self.kwargs.pop(param, None)
         
@@ -298,5 +286,7 @@ class EasyPlot(object):
                be reset to Class defaults"""
         self.args = []
         self.line_list = []
+        self.kwargs['fig'] = None
+        self.kwargs['ax'] = None
         if reset:
             self.kwargs = self._default_kwargs.copy()
