@@ -19,11 +19,15 @@ class EasyPlot(object):
                 format string are passed through for plotting
         
         **kwargs: All kwargs are optional
+          Plot Parameters:
+          ----------------
             fig : figure instance for drawing plots
             ax : axes instance for drawing plots (If user wants to supply axes,
                  figure externally, both ax and fig must be supplied together)
             figSize : tuple of integers ~ width & height in inches
             label : Label for line plot as determined by *args, string
+            color / c : Color of line plot, overrides format string in *args if
+                        supplied. Accepts any valid matplotlib color
             linewidth / lw : Plot linewidth
             linestyle / ls : Plot linestyle ['-','--','-.',':','None',' ','']
             marker : '+', 'o', '*', 's', 'D', ',', '.', '<', '>', '^', '1', '2'
@@ -44,15 +48,24 @@ class EasyPlot(object):
                 Only supports basic xscale/yscale functionality. Use 
                 get_axes().set_xscale() if further customization is required
             grid : Display axes grid. ['on'|'off']. See grid() for more options
-            showlegend : set to True to display legend
-            framealpha : Legend box opacity (0 - 1.0), default = 1.0
-            loc : Location of legend box in plot, default = 'best'
-            numpoints : number of markers in legend, default = 1.0
-            color / c : Color of line plot, overrides format string in *args if
-                        supplied. Accepts any valid matplotlib color
             colorcycle / cs: Set plot colorcycle to list of valid matplotlib
                              colors
             fontsize : Global fontsize for all plots
+
+          Legend Parameters:
+          ------------------
+            showlegend : set to True to display legend
+            fancybox : True by default. Enables rounded corners for legend box
+            framealpha : Legend box opacity (0 - 1.0), default = 1.0
+            loc : Location of legend box in plot, default = 'best'
+            numpoints : number of markers in legend, default = 1.0
+            ncol : number of columns for legend. default is 1
+            markerscale : The relative size of legend markers vs. original. 
+                          If None, use rc settings.
+            mode : if mode is “expand”, the legend will be horizontally 
+                   expanded to fill the axes area (or bbox_to_anchor)
+            bbox_to_anchor : The bbox that the legend will be anchored. Tuple of
+                             2 or 4 floats
         """
         self._default_kwargs = {'fig': None,
                                 'ax': None,
@@ -76,7 +89,8 @@ class EasyPlot(object):
         self.plot_kwargs = ['label', 'linewidth', 'linestyle', 'marker',
                             'markerfacecolor', 'markeredgewidth', 'markersize',
                             'markeredgecolor', 'markevery', 'alpha']
-
+        self.legend_kwargs = ['fancybox', 'loc', 'framealpha', 'numpoints',
+                              'ncol', 'markerscale', 'mode', 'bbox_to_anchor']
         # Parameters that should only be passed to the plot once, then reset                 
         self._uniqueparams = ['color', 'label', 'linestyle', 'marker',
                               'colorcycle']
@@ -139,10 +153,13 @@ class EasyPlot(object):
           
         # Display legend if required
         if self.kwargs['showlegend']:
-            leg = ax.legend(fancybox=self.kwargs['fancybox'],
-                      framealpha=self.kwargs['framealpha'],
-                      loc=self.kwargs['loc'],
-                      numpoints=self.kwargs['numpoints'])
+            legend_kwargs = {kwarg: self.kwargs[kwarg] for kwarg 
+                                in self.legend_kwargs if kwarg in self.kwargs}
+            leg = ax.legend(**legend_kwargs)
+            # leg = ax.legend(fancybox=self.kwargs['fancybox'],
+            #           framealpha=self.kwargs['framealpha'],
+            #           loc=self.kwargs['loc'],
+            #           numpoints=self.kwargs['numpoints'])
             leg.draggable(state=True)
         
         if 'fontsize' in self.kwargs:
