@@ -70,15 +70,13 @@ class EasyPlot(object):
         self._default_kwargs = {'fig': None,
                                 'ax': None,
                                 'figsize': None,
-                                'label': None,
+                                # 'label': None,
                                 'showlegend': False,
                                 'fancybox': True,
                                 'framealpha': 1.0,
                                 'loc': 'best',
                                 'numpoints': 1
                                }
-        self.kwargs = self._default_kwargs.copy()
-        
         # Dictionary of plot parameter aliases               
         self.alias_dict = {'lw': 'linewidth', 'ls': 'linestyle', 
                            'mfc': 'markerfacecolor', 'mew': 'markeredgewidth', 
@@ -88,13 +86,12 @@ class EasyPlot(object):
         # List of all named plot parameters passable to plot method                   
         self.plot_kwargs = ['label', 'linewidth', 'linestyle', 'marker',
                             'markerfacecolor', 'markeredgewidth', 'markersize',
-                            'markeredgecolor', 'markevery', 'alpha']
+                            'markeredgecolor', 'markevery', 'alpha', 'color']
         self.legend_kwargs = ['fancybox', 'loc', 'framealpha', 'numpoints',
                               'ncol', 'markerscale', 'mode', 'bbox_to_anchor']
         # Parameters that should only be passed to the plot once, then reset                 
         self._uniqueparams = ['color', 'label', 'linestyle', 'marker',
                               'colorcycle']
-
         self._colorcycle = []
         # Mapping between plot parameter and corresponding axes function to call                  
         self._ax_funcs = {'xlabel': 'set_xlabel',
@@ -148,8 +145,8 @@ class EasyPlot(object):
             # Create updated name, value dict to pass to plot method
             plot_kwargs = {kwarg: self.kwargs[kwarg] for kwarg 
                                 in self.plot_kwargs if kwarg in self.kwargs}
-            if 'color' in self.kwargs:
-                plot_kwargs['color'] = self.kwargs['color']
+            # if 'color' in self.kwargs:
+            #     plot_kwargs['color'] = self.kwargs['color']
             
             line, = ax.plot(*self.args, **plot_kwargs)
             self.line_list.append(line)            
@@ -231,7 +228,7 @@ class EasyPlot(object):
             for ind in range(y.shape[0]):
                 loop_kwargs={}
                 for kwarg in kwargs:
-                    if isinstance(kwargs[kwarg], basestring):
+                    if isinstance(kwargs[kwarg], (basestring, tuple)):
                         loop_kwargs[kwarg] = kwargs[kwarg]
                     else:
                         try: # Check if parameter is a 1-D List/Array
