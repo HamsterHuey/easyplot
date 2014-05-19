@@ -163,7 +163,8 @@ class EasyPlot(object):
             #           framealpha=self.kwargs['framealpha'],
             #           loc=self.kwargs['loc'],
             #           numpoints=self.kwargs['numpoints'])
-            leg.draggable(state=True)
+            if leg is not None:
+                leg.draggable(state=True)
         
         if 'fontsize' in self.kwargs:
             self.set_fontsize(self.kwargs['fontsize'])
@@ -216,7 +217,7 @@ class EasyPlot(object):
             for key in y:
                 loop_kwargs={}
                 for kwarg in kwargs:
-                    try:
+                    try: # Check if parameter is a dictionary
                         loop_kwargs[kwarg] = kwargs[kwarg][key]
                     except:
                         loop_kwargs[kwarg] = kwargs[kwarg]
@@ -230,10 +231,13 @@ class EasyPlot(object):
             for ind in range(y.shape[0]):
                 loop_kwargs={}
                 for kwarg in kwargs:
-                    try:
-                        loop_kwargs[kwarg] = kwargs[kwarg][ind]
-                    except:
+                    if isinstance(kwargs[kwarg], basestring):
                         loop_kwargs[kwarg] = kwargs[kwarg]
+                    else:
+                        try: # Check if parameter is a 1-D List/Array
+                            loop_kwargs[kwarg] = kwargs[kwarg][ind]
+                        except:
+                            loop_kwargs[kwarg] = kwargs[kwarg]
                 try:
                     x_loop = x[ind][:]
                 except:
