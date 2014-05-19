@@ -129,17 +129,20 @@ class EasyPlot(object):
         # Create figure and axes if needed
         if self.kwargs['fig'] is None:
             self.kwargs['fig'] = plt.figure(figsize=self.kwargs['figsize'])
-            self.kwargs['ax'] = plt.gca()
+            self.kwargs['ax'] = self.kwargs['fig'].gca()
             self.kwargs['fig'].add_axes(self.kwargs['ax'])
 
         ax, fig = self.kwargs['ax'], self.kwargs['fig']
         
+        ax.ticklabel_format(useOffset=False) # Prevent offset notation in plots
+
         # Apply axes functions if present in kwargs
         for kwarg in self.kwargs:
             if kwarg in self._ax_funcs:
                 # eg: f = getattr(ax,'set_title'); f('new title')
                 func = getattr(ax, self._ax_funcs[kwarg])
                 func(self.kwargs[kwarg])
+        
         # Add plot only if new args passed to this instance
         if self.isnewargs:
             # Create updated name, value dict to pass to plot method
@@ -191,6 +194,54 @@ class EasyPlot(object):
             self.kwargs['colorcycle'] = self._colorcycle
         self.add_plot(*args, **kwargs)
     
+    def iter_plot(self, x, y, mode='dict', **kwargs):
+        """
+        Plot multiple plots by iterating through x, y and parameter lists
+
+        Arguments:
+        ==========
+          x : x values. 1D List/Array, Dictionary or Numpy 2D Array
+          y : y values. Dictionary or Numpy 2D Array
+          mode : y, labels and other parameters should either be a Dictionary
+                 or a 2D Numpy array where each row corresponds to a single plot
+                 ['dict'|'numpy']
+          **kwargs : Plot params as defined in __init__ documentation.
+             Params can either be:
+               scalars (same value applied to all plots),
+               dictionaries (mode='dict', key[val] value applies to each plot)
+               1D Lists/Numpy Arrays (mode='numpy', param[index] applies to each
+               plot)
+        """
+        if mode.lower() == 'dict':
+            for key in y:
+                loop_kwargs={}
+                for kwarg in kwargs:
+                    try:
+                        loop_kwargs[kwarg] = kwargs[kwarg][key]
+                    except:
+                        loop_kwargs[kwarg] = kwargs[kwarg]
+                try:
+                    x_loop = x[key]
+                except:
+                    x_loop = x
+                self.add_plot(x_loop, y[key], **loop_kwargs)
+
+        elif mode.lower() == 'numpy':
+            for ind in range(y.shape[0]):
+                loop_kwargs={}
+                for kwarg in kwargs:
+                    try:
+                        loop_kwargs[kwarg] = kwargs[kwarg][ind]
+                    except:
+                        loop_kwargs[kwarg] = kwargs[kwarg]
+                try:
+                    x_loop = x[ind][:]
+                except:
+                    x_loop = x
+                self.add_plot(x_loop, y[ind], **loop_kwargs)
+        else:
+            print('Error! Incorrect mode specification. Ignoring method call')
+
     def autoscale(self, enable=True, axis='both', tight=None):
         """Autoscale the axis view to the data (toggle).
         
