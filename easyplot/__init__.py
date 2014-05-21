@@ -5,4 +5,5 @@
 """
 For documentation read the README file
 """
+__version__ = '1.0.0b1'
 from .easyplot import EasyPlot
