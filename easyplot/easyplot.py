@@ -6,6 +6,11 @@ Author: Sudeep Mandal
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
+if not plt.isinteractive():
+    print("Warning! Matplotlib interactive mode is currently OFF. It is \
+           recommended to use a suitable matplotlib backend and turn it \
+           on by calling matplotlib.pyplot.ion()")
+
 class EasyPlot(object):
     """
     Class that implements thin matplotlib wrapper for easy, reusable plotting
@@ -70,7 +75,6 @@ class EasyPlot(object):
         self._default_kwargs = {'fig': None,
                                 'ax': None,
                                 'figsize': None,
-                                # 'label': None,
                                 'showlegend': False,
                                 'fancybox': True,
                                 'framealpha': 1.0,
@@ -95,13 +99,14 @@ class EasyPlot(object):
         self._colorcycle = []
         # Mapping between plot parameter and corresponding axes function to call                  
         self._ax_funcs = {'xlabel': 'set_xlabel',
-                         'ylabel': 'set_ylabel',
-                         'xlim': 'set_xlim',
-                         'ylim': 'set_ylim',
-                         'title': 'set_title',
-                         'colorcycle': 'set_color_cycle',
-                         'grid': 'grid', 'xscale': 'set_xscale',
-                         'yscale': 'set_yscale'}
+                          'ylabel': 'set_ylabel',
+                          'xlim': 'set_xlim',
+                          'ylim': 'set_ylim',
+                          'title': 'set_title',
+                          'colorcycle': 'set_color_cycle',
+                          'grid': 'grid',
+                          'xscale': 'set_xscale',
+                          'yscale': 'set_yscale'}
                          
         self.kwargs = self._default_kwargs.copy() #Prevent mutating dictionary
         self.args = []
@@ -124,7 +129,7 @@ class EasyPlot(object):
         self._update(*args, **kwargs)
 
         # Create figure and axes if needed
-        if self.kwargs['fig'] is None:
+        if self.kwargs['fig'] is None: #TODO: and self.isnewargs:
             self.kwargs['fig'] = plt.figure(figsize=self.kwargs['figsize'])
             self.kwargs['ax'] = self.kwargs['fig'].gca()
             self.kwargs['fig'].add_axes(self.kwargs['ax'])
@@ -145,8 +150,6 @@ class EasyPlot(object):
             # Create updated name, value dict to pass to plot method
             plot_kwargs = {kwarg: self.kwargs[kwarg] for kwarg 
                                 in self.plot_kwargs if kwarg in self.kwargs}
-            # if 'color' in self.kwargs:
-            #     plot_kwargs['color'] = self.kwargs['color']
             
             line, = ax.plot(*self.args, **plot_kwargs)
             self.line_list.append(line)            
@@ -156,10 +159,6 @@ class EasyPlot(object):
             legend_kwargs = {kwarg: self.kwargs[kwarg] for kwarg 
                                 in self.legend_kwargs if kwarg in self.kwargs}
             leg = ax.legend(**legend_kwargs)
-            # leg = ax.legend(fancybox=self.kwargs['fancybox'],
-            #           framealpha=self.kwargs['framealpha'],
-            #           loc=self.kwargs['loc'],
-            #           numpoints=self.kwargs['numpoints'])
             if leg is not None:
                 leg.draggable(state=True)
         
@@ -167,7 +166,9 @@ class EasyPlot(object):
             self.set_fontsize(self.kwargs['fontsize'])
             
         self._delete_uniqueparams() # Clear unique parameters from kwargs list
-        self.redraw()
+        
+        if plt.isinteractive(): # Only redraw canvas in interactive mode
+            self.redraw()
           
     def update_plot(self, **kwargs):
         """"Update plot parameters (keyword arguments) and replot figure
@@ -199,15 +200,16 @@ class EasyPlot(object):
         Arguments:
         ==========
           x : x values. 1D List/Array, Dictionary or Numpy 2D Array
-          y : y values. Dictionary or Numpy 2D Array
+          y : y values. Dictionary or 2D Python array (List of Lists where each
+              sub-list is one set of y-data) or Numpy 2D Array
           mode : y, labels and other parameters should either be a Dictionary
-                 or a 2D Numpy array where each row corresponds to a single plot
-                 ['dict'|'numpy']
+                 or a 2D Numpy array/2D List where each row corresponds to a 
+                 single plot ['dict'|'array']
           **kwargs : Plot params as defined in __init__ documentation.
              Params can either be:
                scalars (same value applied to all plots),
                dictionaries (mode='dict', key[val] value applies to each plot)
-               1D Lists/Numpy Arrays (mode='numpy', param[index] applies to each
+               1D Lists/Numpy Arrays (mode='array', param[index] applies to each
                plot)
         """
         if mode.lower() == 'dict':
@@ -224,10 +226,11 @@ class EasyPlot(object):
                     x_loop = x
                 self.add_plot(x_loop, y[key], **loop_kwargs)
 
-        elif mode.lower() == 'numpy':
-            for ind in range(y.shape[0]):
+        elif mode.lower() == 'array':
+            for ind in range(len(y)):
                 loop_kwargs={}
                 for kwarg in kwargs:
+                    # Do not iterate through tuple/string plot parameters
                     if isinstance(kwargs[kwarg], (basestring, tuple)):
                         loop_kwargs[kwarg] = kwargs[kwarg]
                     else:
@@ -286,12 +289,14 @@ class EasyPlot(object):
         """
         Redraw plot. Use after custom user modifications of axes & fig objects
         """
-        fig = self.kwargs['fig']
-        #Redraw figure if it was previously closed prior to updating it
-        if not plt.fignum_exists(fig.number):
-            fig.show()
-            
-        fig.canvas.draw()
+        if plt.isinteractive():
+            fig = self.kwargs['fig']
+            #Redraw figure if it was previously closed prior to updating it
+            if not plt.fignum_exists(fig.number):
+                fig.show()
+            fig.canvas.draw()
+        else:
+            print('redraw() is unsupported in non-interactive plotting mode!')
     
     def set_fontsize(self, font_size):
         """ Updates global font size for all plot elements"""

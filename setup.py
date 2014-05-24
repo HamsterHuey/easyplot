@@ -3,6 +3,7 @@ from distutils.core import setup
 import codecs
 import os
 import re
+import glob
 
 import easyplot
 
@@ -21,29 +22,21 @@ setup(name='EasyPlot',
       url='https://github.com/HamsterHuey/easyplot',
       packages=['easyplot'],
       data_files = [('', ['LICENSE.txt']),
+                    ('', ['DESCRIPTION.rst']),
+                    ('', ['README.md']),
+                    ('', ['README.rst']),
                     ('', ['README.html']),
                     ('', ['CHANGELOG.txt']),
-                    ('examples', ['examples/ex1_percentage_indicator_stderr.py']),
-                    ('examples', ['examples/ex1_percentage_indicator_stdout.py']),
-                    ('examples', ['examples/ex1_progress_bar_stderr.py']),
-                    ('examples', ['examples/ex1_progress_bar_stdout.py']),
-                    ('examples', ['examples/ex2_percent_indicator_allargs.py']),
-                    ('examples', ['examples/ex2_progressbar_allargs.py']),
-                    ('examples', ['examples/ex3_percentage_indicator_monitor.py']),
-                    ('examples', ['examples/ex3_progress_bar_monitor.py']),
+                    ('images', glob.glob('images/*.png')),
+                    ('docs', glob.glob('docs/*.ipynb')),
                    ],
-      install_requires = ['matplotlib'],
+      # requires = ['matplotlib'],
       license='MIT',
       platforms='any',
       classifiers=[
           'License :: OSI Approved :: MIT License',
           'Development Status :: 4 - Beta',
           'Programming Language :: Python :: 2.7',
-          'Programming Language :: Python :: 3',
-          'Programming Language :: Python :: 3.1',
-          'Programming Language :: Python :: 3.2',
-          'Programming Language :: Python :: 3.3',
-          'Programming Language :: Python :: 3.4',
       ],
       long_description = long_description,
       keywords='matplotlib wrapper plot easyplot',
