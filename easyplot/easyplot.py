@@ -30,6 +30,7 @@ class EasyPlot(object):
             ax : axes instance for drawing plots (If user wants to supply axes,
                  figure externally, both ax and fig must be supplied together)
             figSize : tuple of integers ~ width & height in inches
+            dpi : dots per inch setting for figure
             label : Label for line plot as determined by *args, string
             color / c : Color of line plot, overrides format string in *args if
                         supplied. Accepts any valid matplotlib color
@@ -75,9 +76,9 @@ class EasyPlot(object):
         self._default_kwargs = {'fig': None,
                                 'ax': None,
                                 'figsize': None,
+                                'dpi': mpl.rcParams['figure.dpi'],
                                 'showlegend': False,
                                 'fancybox': True,
-                                'framealpha': 1.0,
                                 'loc': 'best',
                                 'numpoints': 1
                                }
@@ -94,7 +95,7 @@ class EasyPlot(object):
         self.legend_kwargs = ['fancybox', 'loc', 'framealpha', 'numpoints',
                               'ncol', 'markerscale', 'mode', 'bbox_to_anchor']
         # Parameters that should only be passed to the plot once, then reset                 
-        self._uniqueparams = ['color', 'label', 'linestyle', 'marker',
+        self._uniqueparams = ['color', 'label', 'marker', 'linestyle',
                               'colorcycle']
         self._colorcycle = []
         # Mapping between plot parameter and corresponding axes function to call                  
@@ -130,7 +131,10 @@ class EasyPlot(object):
 
         # Create figure and axes if needed
         if self.kwargs['fig'] is None: #TODO: and self.isnewargs:
-            self.kwargs['fig'] = plt.figure(figsize=self.kwargs['figsize'])
+            if not self.isnewargs:
+                return # Don't create fig, ax yet if no x, y data provided
+            self.kwargs['fig'] = plt.figure(figsize=self.kwargs['figsize'], 
+                                            dpi=self.kwargs['dpi'])
             self.kwargs['ax'] = self.kwargs['fig'].gca()
             self.kwargs['fig'].add_axes(self.kwargs['ax'])
 

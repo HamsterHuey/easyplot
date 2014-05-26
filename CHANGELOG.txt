@@ -1,0 +1,11 @@
+1.0.0b2
+=======
+- Implemented dpi setting for figures
+- Figure and Axes creation deferred if EasyPlot object is constructed with no
+  x, y data for initial plot generation
+- Overhaul of documentation
+
+1.0.0b1
+=======
+Initial Beta release. 
+- Modified setup.py and MANIFEST.in and fixed packaging bugs for PyPI
