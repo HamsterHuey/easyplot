@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 if not plt.isinteractive():
-    print("Warning! Matplotlib interactive mode is currently OFF. It is \
-           recommended to use a suitable matplotlib backend and turn it \
-           on by calling matplotlib.pyplot.ion()")
+    print("\nMatplotlib interactive mode is currently OFF. It is "
+          "recommended to use a suitable matplotlib backend and turn it "
+          "on by calling matplotlib.pyplot.ion()\n")
 
 class EasyPlot(object):
     """
@@ -89,10 +89,10 @@ class EasyPlot(object):
                            'mev': 'markevery', 'c': 'color', 'fs': 'fontsize'}
         
         # List of all named plot parameters passable to plot method                   
-        self.plot_kwargs = ['label', 'linewidth', 'linestyle', 'marker',
+        self._plot_kwargs = ['label', 'linewidth', 'linestyle', 'marker',
                             'markerfacecolor', 'markeredgewidth', 'markersize',
                             'markeredgecolor', 'markevery', 'alpha', 'color']
-        self.legend_kwargs = ['fancybox', 'loc', 'framealpha', 'numpoints',
+        self._legend_kwargs = ['fancybox', 'loc', 'framealpha', 'numpoints',
                               'ncol', 'markerscale', 'mode', 'bbox_to_anchor']
         # Parameters that should only be passed to the plot once, then reset                 
         self._uniqueparams = ['color', 'label', 'marker', 'linestyle',
@@ -153,7 +153,7 @@ class EasyPlot(object):
         if self.isnewargs:
             # Create updated name, value dict to pass to plot method
             plot_kwargs = {kwarg: self.kwargs[kwarg] for kwarg 
-                                in self.plot_kwargs if kwarg in self.kwargs}
+                                in self._plot_kwargs if kwarg in self.kwargs}
             
             line, = ax.plot(*self.args, **plot_kwargs)
             self.line_list.append(line)            
@@ -161,7 +161,7 @@ class EasyPlot(object):
         # Display legend if required
         if self.kwargs['showlegend']:
             legend_kwargs = {kwarg: self.kwargs[kwarg] for kwarg 
-                                in self.legend_kwargs if kwarg in self.kwargs}
+                                in self._legend_kwargs if kwarg in self.kwargs}
             leg = ax.legend(**legend_kwargs)
             if leg is not None:
                 leg.draggable(state=True)

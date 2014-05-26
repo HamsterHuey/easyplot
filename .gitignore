@@ -23,3 +23,6 @@ pip-log.txt
 
 #Translations
 *.mo
+
+#System Files
+Thumbs.db
