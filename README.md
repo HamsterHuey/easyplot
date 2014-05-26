@@ -149,8 +149,7 @@ automatically generate an annotated, multi-line plot with a single statement:
 eplot = EasyPlot(xlabel=r'$x$', ylabel='$y$', fontsize=16,
                  colorcycle=["#66c2a5","#fc8d62","#8da0cb"], figsize=(8,5))
 eplot.iter_plot(x, y_dict, linestyle=linestyle_dict, marker=marker_dict,
-                label=labels_dict, linewidth=3, ms=10, showlegend=True,
-grid='on')
+                label=labels_dict, linewidth=3, ms=10, showlegend=True, grid='on')
 ```
 <img style="padding: 0 100% 0 0" src="images/ep_motivation_3.png" />
 
@@ -184,8 +183,7 @@ commonly used plot parameters (such as `xlabel`, `ylabel`, `title`,
 generate an annotated plot via a single statement such as:
 ```python
 fftplot = EasyPlot(freq, amplitude, 'g-o', markersize=9, linewidth=3,
-xlabel='Frequency (Hz)',
-                       ylabel='Amplitude', label='FFT Data', showlegend=True)
+                xlabel='Frequency (Hz)', ylabel='Amplitude', label='FFT Data', showlegend=True)
 ```
 If no `x`, `y` data is provided to the `EasyPlot` constuctor, creation of a
 figure and axes instance for the `EasyPlot` object is deferred and the plot
@@ -398,9 +396,6 @@ parameters set - `xlabel`, `ylabel`, `title`, `alpha`, `ncol`, `markersize` and
     #Examine set plot parameters for eplot
     eplot.kwargs
 
-
-
-
     {'ax': <matplotlib.axes.AxesSubplot at 0x4485650>,
      'dpi': 80,
      'fancybox': True,
@@ -467,7 +462,7 @@ easyplot provides two ways to display the background grid for the axes.
 grid off.
 
 
-    eplot.new_plot(x, 1/(1+x), '-s', label=r"$y = \frac{1}{1+x}$", c='#fdb462', grid='on')
+        eplot.new_plot(x, 1/(1+x), '-s', label=r"$y = \frac{1}{1+x}$", c='#fdb462', grid='on')
 
 
 ![png](images/easyplot_docs_40_0.png)
@@ -479,9 +474,9 @@ axis='both', **kwargs)` where `**kwargs` are passed to linespec of grid lines
 (eg: linewidth=2)
 
 
-    eplot.new_plot(x, 1/(1+x), '-s', label=r"$y = \frac{1}{1+x}$", c='#fdb462')
-    eplot.grid(which='major', axis='x', linewidth=2, linestyle='--', color='b', alpha=0.5)
-    eplot.grid(which='major', axis='y', linewidth=2, linestyle='-', color='0.85', alpha=0.5)
+        eplot.new_plot(x, 1/(1+x), '-s', label=r"$y = \frac{1}{1+x}$", c='#fdb462')
+        eplot.grid(which='major', axis='x', linewidth=2, linestyle='--', color='b', alpha=0.5)
+        eplot.grid(which='major', axis='y', linewidth=2, linestyle='-', color='0.85', alpha=0.5)
 
 
 ![png](images/easyplot_docs_42_0.png)
