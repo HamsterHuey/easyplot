@@ -343,25 +343,24 @@ supported in this mode (user can call `plt.draw()` instead)
 #Usage and Examples
 [[back to section overview](#sections)]
 
+```python
+# Import modules and setup
+%matplotlib inline
+import matplotlib.pyplot as plt
+import numpy as np
+from easyplot import EasyPlot
 
-    # Import modules and setup
-    %matplotlib inline
-    import matplotlib.pyplot as plt
-    import numpy as np
-    import sys
-    sys.path.append('../')
-    from easyplot import EasyPlot
-    
-    x = np.linspace(0, 10, 10)
+x = np.linspace(0, 10, 10)
+```
 
 <a name="simple_plot"></a>
 
 ## Simple plot
 
-
-    eplot = EasyPlot(x, x**2, 'g--o', label=r"$y = x^2$", showlegend=True, xlabel='x',
-                     ylabel='y', title='title', fontsize=14, markersize=10, alpha=0.6)
-
+```python
+eplot = EasyPlot(x, x**2, 'g--o', label=r"$y = x^2$", showlegend=True, xlabel='x',
+                 ylabel='y', title='title', fontsize=14, markersize=10, alpha=0.6)
+```
 
 ![png](images/easyplot_docs_27_0.png)
 
@@ -371,13 +370,13 @@ supported in this mode (user can call `plt.draw()` instead)
 ##Multiple plots in same figure (Interactive)
 [[back to section overview](#sections)]
 
-
-    #Note the use of plot parameter aliases and the figsize parameter
-    eplot = EasyPlot(x, x**2, label=r"$y = x^2$", figsize=(8,4), showlegend=True, 
-                     ncol=2, ms=10, ls=':', markeredgewidth=1.5, xlabel='x',
-                     ylabel='y', title='title', color='b', marker='s')
-    eplot.add_plot(x, 0.15*x**3, label='$y = 0.15x^3$', c='c', ls='-', marker='D')
-
+```python
+#Note the use of plot parameter aliases and the figsize parameter
+eplot = EasyPlot(x, x**2, label=r"$y = x^2$", figsize=(8,4), showlegend=True, 
+                 ncol=2, ms=10, ls=':', markeredgewidth=1.5, xlabel='x',
+                 ylabel='y', title='title', color='b', marker='s')
+eplot.add_plot(x, 0.15*x**3, label='$y = 0.15x^3$', c='c', ls='-', marker='D')
+```
 
 ![png](images/easyplot_docs_30_0.png)
 
@@ -392,26 +391,25 @@ parameters set - `xlabel`, `ylabel`, `title`, `alpha`, `ncol`, `markersize` and
 `markeredgewidth` . We can examine the current set plot parameters for an
 `EasyPlot` object by accessing its `kwargs` instance variable
 
+```python
+#Examine set plot parameters for eplot
+eplot.kwargs
 
-    #Examine set plot parameters for eplot
-    eplot.kwargs
-
-    {'ax': <matplotlib.axes.AxesSubplot at 0x4485650>,
-     'dpi': 80,
-     'fancybox': True,
-     'fig': <matplotlib.figure.Figure at 0x446d8f0>,
-     'figsize': (8, 4),
-     'loc': 'best',
-     'markeredgewidth': 1.5,
-     'markersize': 10,
-     'ncol': 2,
-     'numpoints': 1,
-     'showlegend': True,
-     'title': 'title',
-     'xlabel': 'x',
-     'ylabel': 'y'}
-
-
+{'ax': <matplotlib.axes.AxesSubplot at 0x4485650>,
+ 'dpi': 80,
+ 'fancybox': True,
+ 'fig': <matplotlib.figure.Figure at 0x446d8f0>,
+ 'figsize': (8, 4),
+ 'loc': 'best',
+ 'markeredgewidth': 1.5,
+ 'markersize': 10,
+ 'ncol': 2,
+ 'numpoints': 1,
+ 'showlegend': True,
+ 'title': 'title',
+ 'xlabel': 'x',
+ 'ylabel': 'y'}
+```
 
 Note that certain plot parameters such as `linestyle`, `marker`, `label` and
 `color` are considered **unique parameters** and do not carry over from one plot
@@ -419,11 +417,11 @@ to another as they are typically unique to a specific plot.
 
 It is easy to use `eplot` as a template to generate a new plot:
 
-
-    eplot.new_plot(x, 1/(1+x), '-s', label=r"$y = \frac{1}{1+x}$", c='#fdb462')
-    # Note that the plot reuses the axis labels, title and marker 
-    # formatting from the previous eplot template
-
+```python
+eplot.new_plot(x, 1/(1+x), '-s', label=r"$y = \frac{1}{1+x}$", c='#fdb462')
+# Note that the plot reuses the axis labels, title and marker 
+# formatting from the previous eplot template
+```
 
 ![png](images/easyplot_docs_35_0.png)
 
@@ -461,9 +459,9 @@ easyplot provides two ways to display the background grid for the axes.
 `grid='on'` can be passed to the easyplot object. Setting `grid='off'` turns the
 grid off.
 
-
-        eplot.new_plot(x, 1/(1+x), '-s', label=r"$y = \frac{1}{1+x}$", c='#fdb462', grid='on')
-
+```python
+    eplot.new_plot(x, 1/(1+x), '-s', label=r"$y = \frac{1}{1+x}$", c='#fdb462', grid='on')
+```
 
 ![png](images/easyplot_docs_40_0.png)
 
@@ -473,11 +471,11 @@ is provided with a call signature of `grid(self, b=None, which='major',
 axis='both', **kwargs)` where `**kwargs` are passed to linespec of grid lines
 (eg: linewidth=2)
 
-
-        eplot.new_plot(x, 1/(1+x), '-s', label=r"$y = \frac{1}{1+x}$", c='#fdb462')
-        eplot.grid(which='major', axis='x', linewidth=2, linestyle='--', color='b', alpha=0.5)
-        eplot.grid(which='major', axis='y', linewidth=2, linestyle='-', color='0.85', alpha=0.5)
-
+```python
+    eplot.new_plot(x, 1/(1+x), '-s', label=r"$y = \frac{1}{1+x}$", c='#fdb462')
+    eplot.grid(which='major', axis='x', linewidth=2, linestyle='--', color='b', alpha=0.5)
+    eplot.grid(which='major', axis='y', linewidth=2, linestyle='-', color='0.85', alpha=0.5)
+```
 
 ![png](images/easyplot_docs_42_0.png)
 
@@ -490,10 +488,10 @@ axis='both', **kwargs)` where `**kwargs` are passed to linespec of grid lines
 Plot parameters `xscale` and `yscale` can be passed to easyplot instances with
 any of the following values: `['linear'|'log'|'symlog']`
 
-
-    eplot.new_plot(x, 1/(1+x), '-s', label=r"$y = \frac{1}{1+x}$", c='#fdb462', yscale='log')
-    eplot.grid(which='minor', axis='both')
-
+```python
+eplot.new_plot(x, 1/(1+x), '-s', label=r"$y = \frac{1}{1+x}$", c='#fdb462', yscale='log')
+eplot.grid(which='minor', axis='both')
+```
 
 ![png](images/easyplot_docs_45_0.png)
 
@@ -510,20 +508,20 @@ the `EasyPlot` object should be initialized with the `colorcycle` and other plot
 parameters without passing any x, y data as shown below. Subsequently, plots can
 be added using the `add_plot()` method.
 
+```python
+# Setup
+colors = ["#66c2a5","#fc8d62","#8da0cb","#e78ac3","#a6d854","#ffd92f","#e5c494","#b3b3b3"]
+x = np.linspace(0,10,200)
 
-    # Setup
-    colors = ["#66c2a5","#fc8d62","#8da0cb","#e78ac3","#a6d854","#ffd92f","#e5c494","#b3b3b3"]
-    x = np.linspace(0,10,200)
-    
-    # Demo of color cycle
-    # Note the use of EasyPlot constructor with no x,y data to initialize colorcycle prior to
-    # adding plots to the figure
-    sinplot = EasyPlot(xlabel=r'$\sin (3\pi x/L)$', ylabel='$Amplitude$', fontsize=16, colorcycle=colors,
-                       figsize=(10,5), linewidth=3)
-    
-    for index in range(8):
-        sinplot.add_plot(x, np.sin(3*np.pi*x/10 + index*np.pi/7))
+# Demo of color cycle
+# Note the use of EasyPlot constructor with no x,y data to initialize colorcycle prior to
+# adding plots to the figure
+sinplot = EasyPlot(xlabel=r'$\sin (3\pi x/L)$', ylabel='$Amplitude$', fontsize=16, colorcycle=colors,
+                   figsize=(10,5), linewidth=3)
 
+for index in range(8):
+    sinplot.add_plot(x, np.sin(3*np.pi*x/10 + index*np.pi/7))
+```
 
 ![png](images/easyplot_docs_48_0.png)
 
@@ -564,44 +562,44 @@ from a dataset using both `mode` settings, i.e., `mode='dict'` and
 `iter_plot` (such as `linewidth`) are broadcast and applied to all plots in the
 figure.
 
+```python
+# Setup the x, y data and plot parameters for both modes
+x = np.linspace(0, 10, 11)
+dict_keys = ['x2', 'x3', 'x4']
+labels_list = ['$y = x^2$', '$y = 0.1x^3$', '$y = 0.01x^4$']
+markers_list = ['s', 'o', 'D']
+linestyle_list = ['-', '--', ':']
 
-    # Setup the x, y data and plot parameters for both modes
-    x = np.linspace(0, 10, 11)
-    dict_keys = ['x2', 'x3', 'x4']
-    labels_list = ['$y = x^2$', '$y = 0.1x^3$', '$y = 0.01x^4$']
-    markers_list = ['s', 'o', 'D']
-    linestyle_list = ['-', '--', ':']
-    
-    y_dict, marker_dict, labels_dict, linestyle_dict = {}, {}, {}, {}
-    x_list, y_list = [], [] # List of x and y data sets for mode='array'
-    
-    # Populate dict and list variables with data set
-    for ind, key in enumerate(dict_keys):
-        marker_dict[key] = markers_list[ind]
-        labels_dict[key] = labels_list[ind]
-        linestyle_dict[key] = linestyle_list[ind]
-        y_dict[key] = (0.1**ind)*x**(ind+2)
-        y_list.append((0.1**ind)*x**(ind+2)) 
-        x_list.append(x)
+y_dict, marker_dict, labels_dict, linestyle_dict = {}, {}, {}, {}
+x_list, y_list = [], [] # List of x and y data sets for mode='array'
+
+# Populate dict and list variables with data set
+for ind, key in enumerate(dict_keys):
+    marker_dict[key] = markers_list[ind]
+    labels_dict[key] = labels_list[ind]
+    linestyle_dict[key] = linestyle_list[ind]
+    y_dict[key] = (0.1**ind)*x**(ind+2)
+    y_list.append((0.1**ind)*x**(ind+2)) 
+    x_list.append(x)
 
 
-    # Demonstrate iter_plot using mode='dict'
-    eplot = EasyPlot(xlabel=r'$x$', ylabel='$y$', fontsize=16,
-                     colorcycle=["#66c2a5","#fc8d62","#8da0cb"], figsize=(8,5))
-    eplot.iter_plot(x, y_dict, linestyle=linestyle_dict, marker=marker_dict,
-                    label=labels_dict, linewidth=3, ms=10, showlegend=True, grid='on')
-
+# Demonstrate iter_plot using mode='dict'
+eplot = EasyPlot(xlabel=r'$x$', ylabel='$y$', fontsize=16,
+                 colorcycle=["#66c2a5","#fc8d62","#8da0cb"], figsize=(8,5))
+eplot.iter_plot(x, y_dict, linestyle=linestyle_dict, marker=marker_dict,
+                label=labels_dict, linewidth=3, ms=10, showlegend=True, grid='on')
+```
 
 ![png](images/easyplot_docs_52_0.png)
 
 
-
-    # Demonstrate iter_plot using mode='array'. Both x_list and y_list are 2D arrays
-    eplot = EasyPlot(xlabel=r'$x$', ylabel='$y$', fontsize=16, 
-                     colorcycle=["#66c2a5","#fc8d62","#8da0cb"], figsize=(8,5))
-    eplot.iter_plot(x_list, y_list, mode='array', linestyle=linestyle_list, marker=markers_list, 
-                    label=labels_list, linewidth=3, ms=10, showlegend=True, grid='on')
-
+```python
+# Demonstrate iter_plot using mode='array'. Both x_list and y_list are 2D arrays
+eplot = EasyPlot(xlabel=r'$x$', ylabel='$y$', fontsize=16, 
+                 colorcycle=["#66c2a5","#fc8d62","#8da0cb"], figsize=(8,5))
+eplot.iter_plot(x_list, y_list, mode='array', linestyle=linestyle_list, marker=markers_list, 
+                label=labels_list, linewidth=3, ms=10, showlegend=True, grid='on')
+```
 
 ![png](images/easyplot_docs_53_0.png)
 
@@ -636,32 +634,32 @@ obtain the desired results as demonstrated below. The example below reuses the
 `sinplot` object from [this example](#colorcycle) as a template to easily
 generate new plots with desired axis labels and plot parameters.
 
+```python
+# Reuses sinplot template from one of the previous examples for labels, linewidth and fontsize
+x = np.linspace(0, 10, 200)
+fig, axes = plt.subplots(2, 1, figsize=(10,6)) # Create fig and axes for subplots externally
 
-    # Reuses sinplot template from one of the previous examples for labels, linewidth and fontsize
-    x = np.linspace(0, 10, 200)
-    fig, axes = plt.subplots(2, 1, figsize=(10,6)) # Create fig and axes for subplots externally
-    
-    # Supply fig and axes instance to EasyPlot object
-    sinplot.new_plot(x, np.sin(3*np.pi*x/10 + np.pi/8), fig=fig, ax=axes[0], color="#fc8d62") 
-    sinplot.new_plot(x, np.sin(3*np.pi*x/10 + 9*np.pi/8), fig=fig, ax=axes[1], color="#66c2a5")
-    fig.set_tight_layout(True)
-
+# Supply fig and axes instance to EasyPlot object
+sinplot.new_plot(x, np.sin(3*np.pi*x/10 + np.pi/8), fig=fig, ax=axes[0], color="#fc8d62") 
+sinplot.new_plot(x, np.sin(3*np.pi*x/10 + 9*np.pi/8), fig=fig, ax=axes[1], color="#66c2a5")
+fig.set_tight_layout(True)
+```
 
 ![png](images/easyplot_docs_58_0.png)
 
 
+```python
+# Another example
+fig, axes = plt.subplots(figsize=(9,9), nrows=2, ncols=2) # Create fig and axes
 
-    # Another example
-    fig, axes = plt.subplots(figsize=(9,9), nrows=2, ncols=2) # Create fig and axes
-    
-    # Setup EasyPlot object with common plot parameters
-    eplot = EasyPlot(xlabel='x', ylabel='y(x)', title='Plot title', fs=14, lw=3)
-    
-    # Loop through subplot axes and use eplot template to create new plots
-    for (x_ind,y_ind), ax in np.ndenumerate(axes):
-        eplot.new_plot(x, x**(x_ind+y_ind-1), fig=fig, ax=ax, c="#8da0cb")   
-    fig.tight_layout()
+# Setup EasyPlot object with common plot parameters
+eplot = EasyPlot(xlabel='x', ylabel='y(x)', title='Plot title', fs=14, lw=3)
 
+# Loop through subplot axes and use eplot template to create new plots
+for (x_ind,y_ind), ax in np.ndenumerate(axes):
+    eplot.new_plot(x, x**(x_ind+y_ind-1), fig=fig, ax=ax, c="#8da0cb")   
+fig.tight_layout()
+```
 
 ![png](images/easyplot_docs_59_0.png)
 
@@ -671,22 +669,20 @@ generate new plots with desired axis labels and plot parameters.
 ##Custom plot modifications via axes instance
 [[back to section overview](#sections)]
 
+```python
+# Setup EasyPlot object with common plot parameters
+x = np.linspace(0, 10, 11)
+eplot = EasyPlot(x, x**2, xlabel='x', ylabel='y(x)', figsize=(6,5),
+                 title='Plot title', fs=14, lw=3, xlim=(0,11), c="#fc8d62")
+ax = eplot.get_axes()
 
-
-
-    # Setup EasyPlot object with common plot parameters
-    x = np.linspace(0, 10, 11)
-    eplot = EasyPlot(x, x**2, xlabel='x', ylabel='y(x)', figsize=(6,5),
-                     title='Plot title', fs=14, lw=3, xlim=(0,11), c="#fc8d62")
-    ax = eplot.get_axes()
-    
-    # Modify plot by direct manipulation of axes instance
-    ax.bar(x, x**2, align="center", width=0.5, alpha=0.6, color="#a6d854")
-    ax.set_xticks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-    ax.set_xticklabels([r'$\alpha$', r'$\beta$', r'$\gamma$', r'$\delta$', r'$\epsilon$',
-                        r'$\chi$', r'$\nu$', r'$\mu$', r'$\omega$', r'$\phi$'], fontsize=18)
-    eplot.redraw() # Update plot canvas with axes modifications
-
+# Modify plot by direct manipulation of axes instance
+ax.bar(x, x**2, align="center", width=0.5, alpha=0.6, color="#a6d854")
+ax.set_xticks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+ax.set_xticklabels([r'$\alpha$', r'$\beta$', r'$\gamma$', r'$\delta$', r'$\epsilon$',
+                    r'$\chi$', r'$\nu$', r'$\mu$', r'$\omega$', r'$\phi$'], fontsize=18)
+eplot.redraw() # Update plot canvas with axes modifications
+```
 
 ![png](images/easyplot_docs_62_0.png)
 
