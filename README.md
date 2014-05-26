@@ -98,6 +98,7 @@ ax.set_ylabel('y')
 ax.set_title('title')
 ```
 <img style="padding: 0 100% 0 0" src="images/ep_motivation_1.png" />
+
 Pylab alleviates some of this, but still requires calls to a number of different
 functions that are commonly used (such as xlabel, xlim, etc.). More complicated
 plots can require several more lines of code. Typing all this code every time to
