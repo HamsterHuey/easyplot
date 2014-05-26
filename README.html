@@ -1814,7 +1814,7 @@ ax.grid()
 ax.set_xlabel(<span class="st">&#39;x&#39;</span>)
 ax.set_ylabel(<span class="st">&#39;y&#39;</span>)
 ax.set_title(<span class="st">&#39;title&#39;</span>)</code></pre>
-<p><img style="padding: 0 100% 0 0" src="images/ep_motivation_1.png" /> Pylab alleviates some of this, but still requires calls to a number of different functions that are commonly used (such as xlabel, xlim, etc.). More complicated plots can require several more lines of code. Typing all this code every time to generate plots gets tedious very quickly. This situation is further exacerbated when working in an IPython Notebook where all plots typically need to be labeled, annotated and looking their best. Having several lines of code preceeding every plot in a notebook can break the flow of the document and distract from the code/concepts being presented by the author. Furthermore, oftentimes, plots with similar labels and formatting need to be generated repeatedly with different datasets. Generating these sets of plots would require retyping these same lines of boilerplate code across different sections of your code/notebook.</p>
+<p><img style="padding: 0 100% 0 0" src="../images/ep_motivation_1.png" /> Pylab alleviates some of this, but still requires calls to a number of different functions that are commonly used (such as xlabel, xlim, etc.). More complicated plots can require several more lines of code. Typing all this code every time to generate plots gets tedious very quickly. This situation is further exacerbated when working in an IPython Notebook where all plots typically need to be labeled, annotated and looking their best. Having several lines of code preceeding every plot in a notebook can break the flow of the document and distract from the code/concepts being presented by the author. Furthermore, oftentimes, plots with similar labels and formatting need to be generated repeatedly with different datasets. Generating these sets of plots would require retyping these same lines of boilerplate code across different sections of your code/notebook.</p>
 <p>Easyplot is my attempt to address these issues and make generating quick, pleasant looking, annotated plots a bit easier. In keeping with <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY philosophy</a>, <code>easyplot</code> enables the creation of an <code>EasyPlot</code> object that maintains state information of all plot parameters passed to it in order to generate a plot. This can then be easily reused to generate new plots with the user only having to supply any additional plot parameters, or those parameters he or she wishes to override from the previous plot.</p>
 <p>Easyplot supports a large number of standard plot parameters that most users typically deal with when plotting in matplotlib. Additionally, it provides methods to access the figure and axes instance for the latest plot, enabling users to perform more custom plot modifications that are not directly supported by easyplot. It also supports interactive plotting where additional plot parameters can be passed to the current plot using the <code>update_plot</code> method. The plot above can be generated using <code>easyplot</code> as follows:</p>
 <pre class="sourceCode python"><code class="sourceCode python">eplot = EasyPlot(x, x**<span class="dv">2</span>, <span class="st">&#39;b-o&#39;</span>, label=<span class="st">&#39;y = x**2&#39;</span>, showlegend=<span class="ot">True</span>,
@@ -1822,13 +1822,13 @@ ax.set_title(<span class="st">&#39;title&#39;</span>)</code></pre>
 eplot.add_plot(x, x**<span class="dv">3</span>, <span class="st">&#39;r--s&#39;</span>, label=<span class="st">&#39;y = x**3&#39;</span>)</code></pre>
 <p>Along with the reduced typing, easyplot enables the consolidation and passing of all plot parameters into a single plot call. This is already quite handy, but the real benefit is evident when one needs to generate a new plot with the same plot parameters (such as axis labels and title) but with new data:</p>
 <pre class="sourceCode python"><code class="sourceCode python">eplot.new_plot(x, <span class="dv">1</span>/x, <span class="st">&#39;g-D&#39;</span>, label=<span class="st">&#39;y = 1/x&#39;</span>)</code></pre>
-<p><img style="padding: 0 100% 0 0" src="images/ep_motivation_2.png" /></p>
+<p><img style="padding: 0 100% 0 0" src="../images/ep_motivation_2.png" /></p>
 <p><code>EasyPlot</code> also provides an <code>iter_plot()</code> method that iterates through x, y data and plot parameters that are provided in a list or dictionary format to automatically generate an annotated, multi-line plot with a single statement:</p>
 <pre class="sourceCode python"><code class="sourceCode python">eplot = EasyPlot(xlabel=<span class="st">r&#39;$x$&#39;</span>, ylabel=<span class="st">&#39;$y$&#39;</span>, fontsize=<span class="dv">16</span>,
                  colorcycle=[<span class="st">&quot;#66c2a5&quot;</span>,<span class="st">&quot;#fc8d62&quot;</span>,<span class="st">&quot;#8da0cb&quot;</span>], figsize=(<span class="dv">8</span>,<span class="dv">5</span>))
 eplot.iter_plot(x, y_dict, linestyle=linestyle_dict, marker=marker_dict,
                 label=labels_dict, linewidth=<span class="dv">3</span>, ms=<span class="dv">10</span>, showlegend=<span class="ot">True</span>, grid=<span class="st">&#39;on&#39;</span>)</code></pre>
-<p><img style="padding: 0 100% 0 0" src="images/ep_motivation_3.png" /></p>
+<p><img style="padding: 0 100% 0 0" src="../images/ep_motivation_3.png" /></p>
 </div>
 </div>
 </div>
@@ -2065,8 +2065,7 @@ In&nbsp;[1]:
 <span class="o">%</span><span class="k">matplotlib</span> <span class="n">inline</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;../&#39;</span><span class="p">)</span>
+
 <span class="kn">from</span> <span class="nn">easyplot</span> <span class="kn">import</span> <span class="n">EasyPlot</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
