@@ -18,7 +18,7 @@ http://nbviewer.ipython.org/github/HamsterHuey/easyplot/blob/master/docs/easyplo
 
 .. raw:: html
 
-   <hr>
+   <hr size=5>
 
 I'd love to hear your comments and/or suggestions. You can get in touch
 with me via `twitter <https://twitter.com/hamsterhuey>`__,
@@ -27,7 +27,7 @@ with me via `twitter <https://twitter.com/hamsterhuey>`__,
 
 .. raw:: html
 
-   <hr>
+   <hr size=5>
 
 Requirements
 ---------------
@@ -155,16 +155,17 @@ plot with a single statement:
 Features
 ========
 
-- Access to a large number
-of the most used matplotlib plot parameters under a unified wrapper
-class - Plot parameter aliases supported. Can be extended by user for
-arbitrary alias definitions for various plot parameters - Ability to use
-``EasyPlot`` objects as templates to rapidly generate annotated plots of
-a similar type - ``iter_plot()`` method to easily iterate through x, y
-datasets and plot multiple plots with a single method call - Draggable
-legend when using GUI backends (eg: qt, wx, etc.) - Provides access to
-underlying figure, axes and line2D objects for advanced plot
-customization
+- Access to a large number of the most used matplotlib plot parameters under a 
+  unified wrapper class
+- Plot parameter aliases supported. Can be extended by user for
+  arbitrary alias definitions for various plot parameters 
+- Ability to use ``EasyPlot`` objects as templates to rapidly generate annotated
+  plots of a similar type 
+- ``iter_plot()`` method to easily iterate through x, y datasets and plot 
+  multiple plots with a single method call
+- Draggable legend when using GUI backends (eg: qt, wx, etc.)
+- Provides access to underlying figure, axes and line2D objects for advanced plot
+  customization
 
 
 Usage and Examples
