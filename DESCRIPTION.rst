@@ -159,8 +159,8 @@ Features
 Usage and Examples
 ==================
 
-For more details and examples please see the included package documentation and
-the IPython Notebook containing documentation and an extensive list of examples:
+For more details and examples, please view the online IPython Notebook containing 
+easyplot documentation and an extensive list of examples:
 http://nbviewer.ipython.org/github/HamsterHuey/easyplot/blob/master/docs/easyplot_docs.ipynb
 
 Contact
