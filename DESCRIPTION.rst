@@ -16,18 +16,6 @@ For more details and examples please see the included package documentation and
 the IPython Notebook containing documentation and an extensive list of examples:
 http://nbviewer.ipython.org/github/HamsterHuey/easyplot/blob/master/docs/easyplot_docs.ipynb
 
-.. raw:: html
-
-   <hr size=5>
-
-I'd love to hear your comments and/or suggestions. You can get in touch
-with me via `twitter <https://twitter.com/hamsterhuey>`__,
-`email <mailto:sudeepmandal@gmail.com>`__ or
-`google+ <https://plus.google.com/u/0/105292596991480463202/>`__
-
-.. raw:: html
-
-   <hr size=5>
 
 Requirements
 ---------------
@@ -81,7 +69,7 @@ creating a basic plot in matplotlib requires the following lines of code:
     ax.set_ylabel('y')
     ax.set_title('title')
 
-.. image:: https://raw.githubusercontent.com/HamsterHuey/easyplot/Dev_1.0.0b2/images/ep_motivation_1.png
+.. image:: https://raw.githubusercontent.com/HamsterHuey/easyplot/master/images/ep_motivation_1.png
    :align: left
 
 Pylab alleviates some of this, but still requires calls to a number of
@@ -133,7 +121,7 @@ but with new data:
 
     eplot.new_plot(x, 1/x, 'g-D', label='y = 1/x')
 
-.. image:: https://raw.githubusercontent.com/HamsterHuey/easyplot/Dev_1.0.0b2/images/ep_motivation_2.png
+.. image:: https://raw.githubusercontent.com/HamsterHuey/easyplot/master/images/ep_motivation_2.png
    :align: left
 
 ``EasyPlot`` also provides an ``iter_plot()`` method that iterates
@@ -148,7 +136,7 @@ plot with a single statement:
     eplot.iter_plot(x, y_dict, linestyle=linestyle_dict, marker=marker_dict,
                     label=labels_dict, linewidth=3, ms=10, showlegend=True, grid='on')
 
-.. image:: https://raw.githubusercontent.com/HamsterHuey/easyplot/Dev_1.0.0b2/images/ep_motivation_3.png
+.. image:: https://raw.githubusercontent.com/HamsterHuey/easyplot/master/images/ep_motivation_3.png
    :align: left
 
 
@@ -178,7 +166,8 @@ http://nbviewer.ipython.org/github/HamsterHuey/easyplot/blob/master/docs/easyplo
 Contact
 =============
 
-If you have any questions or comments about EasyPlot, please feel free to contact me via
+I'd love to hear your comments and/or suggestions. You can get in touch
+with me via:
 
 - eMail: sudeepmandal@gmail.com
 - Twitter: https://twitter.com/hamsterhuey
