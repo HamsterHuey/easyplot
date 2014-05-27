@@ -70,7 +70,7 @@ creating a basic plot in matplotlib requires the following lines of code:
     ax.set_title('title')
 
 .. image:: https://raw.githubusercontent.com/HamsterHuey/easyplot/master/images/ep_motivation_1.png
-   :align: left
+   :align: center
 
 Pylab alleviates some of this, but still requires calls to a number of
 different functions that are commonly used (such as xlabel, xlim, etc.).
@@ -122,7 +122,7 @@ but with new data:
     eplot.new_plot(x, 1/x, 'g-D', label='y = 1/x')
 
 .. image:: https://raw.githubusercontent.com/HamsterHuey/easyplot/master/images/ep_motivation_2.png
-   :align: left
+   :align: center
 
 ``EasyPlot`` also provides an ``iter_plot()`` method that iterates
 through x, y data and plot parameters that are provided in a list or
@@ -137,7 +137,7 @@ plot with a single statement:
                     label=labels_dict, linewidth=3, ms=10, showlegend=True, grid='on')
 
 .. image:: https://raw.githubusercontent.com/HamsterHuey/easyplot/master/images/ep_motivation_3.png
-   :align: left
+   :align: center
 
 
 Features

@@ -4,9 +4,7 @@ DESCRIPTION.rst
 LICENSE.txt
 README.html
 README.md
-README.rst
 setup.py
-docs\Untitled0.ipynb
 docs\easyplot_docs.ipynb
 easyplot\__init__.py
 easyplot\easyplot.py
