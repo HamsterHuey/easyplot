@@ -28,7 +28,7 @@ with me via `twitter <https://twitter.com/hamsterhuey>`__,
 .. raw:: html
 
    <hr>
-   
+
 Requirements
 ---------------
 - Python 2.7.2+
@@ -84,7 +84,7 @@ creating a basic plot in matplotlib requires the following lines of code:
 .. image:: https://raw.githubusercontent.com/HamsterHuey/easyplot/Dev_1.0.0b2/images/ep_motivation_1.png
    :align: left
 
- Pylab alleviates some of this, but still requires calls to a number of
+Pylab alleviates some of this, but still requires calls to a number of
 different functions that are commonly used (such as xlabel, xlim, etc.).
 More complicated plots can require several more lines of code. Typing
 all this code every time to generate plots gets tedious very quickly.
@@ -155,19 +155,24 @@ plot with a single statement:
 Features
 ========
 
-- Access to a large number of the most used matplotlib plot parameters under a 
-unified wrapper class
-- Plot parameter aliases supported. Can be extended by user for
-arbitrary alias definitions for various plot parameters
-- Ability to use ``EasyPlot`` objects as templates to rapidly generate annotated 
-plots of a similar type
-- ``iter_plot()`` method to easily iterate through x, y datasets and plot 
-multiple plots with a single method call
-- Draggable legend when using GUI backends (eg: qt, wx, etc.)
-- Provides access to underlying figure, axes and line2D objects for advanced plot
+- Access to a large number
+of the most used matplotlib plot parameters under a unified wrapper
+class - Plot parameter aliases supported. Can be extended by user for
+arbitrary alias definitions for various plot parameters - Ability to use
+``EasyPlot`` objects as templates to rapidly generate annotated plots of
+a similar type - ``iter_plot()`` method to easily iterate through x, y
+datasets and plot multiple plots with a single method call - Draggable
+legend when using GUI backends (eg: qt, wx, etc.) - Provides access to
+underlying figure, axes and line2D objects for advanced plot
 customization
 
 
+Usage and Examples
+==================
+
+For more details and examples please see the included package documentation and
+the IPython Notebook containing documentation and an extensive list of examples:
+http://nbviewer.ipython.org/github/HamsterHuey/easyplot/blob/master/docs/easyplot_docs.ipynb
 
 Contact
 =============
