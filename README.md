@@ -214,54 +214,54 @@ variable respectively.
 
 ### EasyPlot instance methods
 The main instance methods for `EasyPlot` objects are:
-<hr>
+
 `add_plot(*args, **kwargs)` : This is the main instance method to add additional
 plots and plot parameters to an existing plot. `*args` are the typical
 matplotlib plot args of the form `(x, y, 'b-o')`. `**kwargs` are a list of named
 plot parameters as explained in the [next section](#plot_params).
-<hr>
+
 `update_plot(**kwargs)` : Instance method to update plot parameters only
 (example: `xlabel`, `title`, etc.). This method is typically only useful when
 plotting interactively using an interactive matplotlib backend.
-<hr>
+
 `new_plot(*args, **kwargs)` : Create a new plot using the plot parameters of the
 existing `EasyPlot` instance as a template (i.e., plot parameter settings carry
 over from the `EasyPlot` instance to the new plot)
-<hr>
+
 `iter_plot(x, y, mode='dict', **kwargs)` : This method can be used to plot
 multiple line/scatter plots with a single statement as long as `x`, `y`, and any
 relevant plot parameters that change for each plot are passed in as either a
 dictionary with a common set of keys (`mode='dict'`) or a set of lists/arrays
 corresponding to each data set to be plotted (`mode='array'`).
-<hr>
+
 `autoscale(enable=True, axis='both', tight=None)` : Set autoscale options for
 `x`, `y` or `both` axes
-<hr>
+
 `grid(**kwargs)` : Equivalent to matplotlib axes.grid() method and accepts same
 set of keyword arguments. Enables more custom control over the plot grid.
-<hr>
+
 `get_figure()` : Returns reference to the Figure object for the instance
-<hr>
+
 `get_axes()` : Returns reference to the axes object for the instance
-<hr>
+
 `redraw()` : Forces a redraw of the plot canvas. Must be used if custom
 modifications are made to the plot external to easyplot via direct access to the
 figure and axes handles. **Note: `redraw()` is only supported when plotting in
 interactive mode (i.e. `plt.isinteractive() == True`)**.
-<hr>
+
 `set_fontsize(font_size)` : Modify global setting for plot font-size
-<hr>
+
 
 <a name="variables"></a>
 
 ### EasyPlot instance variables
 The main instance variables for `EasyPlot` objects are:
-<hr>
+
 `self.kwargs` : A dictionary containing a list of all existing plot parameters
 for an `EasyPlot` object. The user should not modify this directly. This
 variable should be accessed in a read-only fashion for the purposes of examining
 the state of an `EasyPlot` object.
-<hr>
+
 `self.line_list` : A list of [`Line2D`](http://matplotlib.org/1.3.1/api/artist_a
 pi.html#matplotlib.lines.Line2D) items corresponding to all plots of the
 `EasyPlot` object. These can be manipulated using standard matplotlib methods
