@@ -1,3 +1,9 @@
+1.0.0
+=====
+First public release
+- Minor code refactoring
+- Tidy up all documentation
+
 1.0.0b2
 =======
 - Implemented dpi setting for figures
