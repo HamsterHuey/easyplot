@@ -223,8 +223,11 @@ The main instance methods for `EasyPlot` objects are:
 `add_plot(*args, **kwargs)` : This is the main instance method to add additional
 plots and plot parameters to an existing plot. `*args` is a variable length 
 argument, allowing for `x`, `y` pairs with an optional format string of the form
-`'b-o'`. `**kwargs` are a list of named plot parameters as explained in the 
-[next section](#plot_params).
+`'b-o'`. The optional format string is a shorthand for specifying the plot color
+, linestyle and marker type. The [matplotlib docs]
+(http://matplotlib.org/1.3.1/api/pyplot_api.html#matplotlib.pyplot.plot) provide
+more information regarding the format string notation. `**kwargs` are a list of 
+named plot parameters as explained in the [next section](#plot_params).
 
 `update_plot(**kwargs)` : Instance method to update plot parameters only
 (example: `xlabel`, `title`, etc.). This method is typically only useful when
