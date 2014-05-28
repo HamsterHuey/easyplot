@@ -19,6 +19,9 @@ via [twitter](https://twitter.com/hamsterhuey),
 [google+](https://plus.google.com/u/0/105292596991480463202/)
 <hr>
 
+This document is also viewable online as an IPython Notebook:
+**http://nbviewer.ipython.org/github/HamsterHuey/easyplot/blob/master/docs/easyplot_docs.ipynb**
+
 <a name="sections"></a>
 
 ##Sections
@@ -179,8 +182,9 @@ plot customization
 EasyPlot consists of an `EasyPlot` class to create `EasyPlot()` objects in order
 to generate matplotlib plots. The object constructor allows for passing all
 commonly used plot parameters (such as `xlabel`, `ylabel`, `title`,
-`markersize`, `linewidth`, etc.) and the `x`, `y` data as arguments in order to
-generate an annotated plot via a single statement such as:
+`markersize`, `linewidth`, etc.) and the `x`, `y` data and an optional format 
+string as arguments in order to generate an annotated plot via a single 
+statement such as:
 ```python
 fftplot = EasyPlot(freq, amplitude, 'g-o', markersize=9, linewidth=3,
                 xlabel='Frequency (Hz)', ylabel='Amplitude', label='FFT Data', showlegend=True)
@@ -216,9 +220,10 @@ variable respectively.
 The main instance methods for `EasyPlot` objects are:
 
 `add_plot(*args, **kwargs)` : This is the main instance method to add additional
-plots and plot parameters to an existing plot. `*args` are the typical
-matplotlib plot args of the form `(x, y, 'b-o')`. `**kwargs` are a list of named
-plot parameters as explained in the [next section](#plot_params).
+plots and plot parameters to an existing plot. `*args` is a variable length 
+argument, allowing for `x`, `y` pairs with an optional format string of the form
+`'b-o'`. `**kwargs` are a list of named plot parameters as explained in the 
+[next section](#plot_params).
 
 `update_plot(**kwargs)` : Instance method to update plot parameters only
 (example: `xlabel`, `title`, etc.). This method is typically only useful when

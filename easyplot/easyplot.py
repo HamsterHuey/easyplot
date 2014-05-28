@@ -130,7 +130,7 @@ class EasyPlot(object):
         self._update(*args, **kwargs)
 
         # Create figure and axes if needed
-        if self.kwargs['fig'] is None: #TODO: and self.isnewargs:
+        if self.kwargs['fig'] is None:
             if not self.isnewargs:
                 return # Don't create fig, ax yet if no x, y data provided
             self.kwargs['fig'] = plt.figure(figsize=self.kwargs['figsize'], 

@@ -1,3 +1,7 @@
+1.0.1
+=====
+- Updated docs to describe format string argument
+
 1.0.0
 =====
 First public release
