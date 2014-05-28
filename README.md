@@ -20,6 +20,7 @@ via [twitter](https://twitter.com/hamsterhuey),
 <hr>
 
 This document is also viewable online as an IPython Notebook:
+
 **http://nbviewer.ipython.org/github/HamsterHuey/easyplot/blob/master/docs/easyplot_docs.ipynb**
 
 <a name="sections"></a>
