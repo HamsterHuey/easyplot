@@ -11,11 +11,20 @@ if not plt.isinteractive():
           "recommended to use a suitable matplotlib backend and turn it "
           "on by calling matplotlib.pyplot.ion()\n")
 
+_ppl_compatibility = True
+try:
+    import prettyplotlib as ppl
+    from prettyplotlib import brewer2mpl
+except Exception, e:
+    print('Failed to import prettyplotlib!\n')
+    _ppl_compatibility = False
+
 class EasyPlot(object):
     """
     Class that implements thin matplotlib wrapper for easy, reusable plotting
     """
-                  
+    
+
     def __init__(self, *args, **kwargs):
         """
         Arguments
@@ -57,6 +66,7 @@ class EasyPlot(object):
             colorcycle / cs: Set plot colorcycle to list of valid matplotlib
                              colors
             fontsize : Global fontsize for all plots
+            ppl : Set True if EasyPlot should use PrettyPlotLib for plots
 
           Legend Parameters:
           ------------------
@@ -73,6 +83,7 @@ class EasyPlot(object):
             bbox_to_anchor : The bbox that the legend will be anchored. Tuple of
                              2 or 4 floats
         """
+
         self._default_kwargs = {'fig': None,
                                 'ax': None,
                                 'figsize': None,
@@ -80,7 +91,8 @@ class EasyPlot(object):
                                 'showlegend': False,
                                 'fancybox': True,
                                 'loc': 'best',
-                                'numpoints': 1
+                                'numpoints': 1,
+                                'ppl': False
                                }
         # Dictionary of plot parameter aliases               
         self.alias_dict = {'lw': 'linewidth', 'ls': 'linestyle', 
@@ -127,16 +139,22 @@ class EasyPlot(object):
                     and format string are passed through for plotting
             **kwargs : Plot parameters. Refer to __init__ docstring for details
         """
+        show_ticks = kwargs.pop('show_ticks', False)
         self._update(*args, **kwargs)
 
         # Create figure and axes if needed
         if self.kwargs['fig'] is None:
             if not self.isnewargs:
                 return # Don't create fig, ax yet if no x, y data provided
-            self.kwargs['fig'] = plt.figure(figsize=self.kwargs['figsize'], 
+            
+            if _ppl_compatibility and self.kwargs['ppl']:
+                self.kwargs['fig'], self.kwargs['ax'] = ppl.subplots(
+                                            figsize=self.kwargs['figsize'], 
                                             dpi=self.kwargs['dpi'])
-            self.kwargs['ax'] = self.kwargs['fig'].gca()
-            self.kwargs['fig'].add_axes(self.kwargs['ax'])
+            else:
+                self.kwargs['fig'], self.kwargs['ax'] = plt.subplots(
+                                            figsize=self.kwargs['figsize'], 
+                                            dpi=self.kwargs['dpi'])
 
         ax, fig = self.kwargs['ax'], self.kwargs['fig']
         
@@ -155,14 +173,26 @@ class EasyPlot(object):
             plot_kwargs = {kwarg: self.kwargs[kwarg] for kwarg 
                                 in self._plot_kwargs if kwarg in self.kwargs}
             
-            line, = ax.plot(*self.args, **plot_kwargs)
+            if _ppl_compatibility and self.kwargs['ppl']:
+                line, = ppl.plot(ax, *self.args, **plot_kwargs)
+            else:
+                line, = ax.plot(*self.args, **plot_kwargs)
+
             self.line_list.append(line)            
-          
+        
+        # if _ppl_compatibility:
+        #     remove_chartjunk(ax, ['top', 'right'], show_ticks=show_ticks)
+
         # Display legend if required
         if self.kwargs['showlegend']:
             legend_kwargs = {kwarg: self.kwargs[kwarg] for kwarg 
                                 in self._legend_kwargs if kwarg in self.kwargs}
-            leg = ax.legend(**legend_kwargs)
+            
+            if _ppl_compatibility and self.kwargs['ppl']:
+                leg = ppl.legend(ax, **legend_kwargs)
+            else:
+                leg = ax.legend(**legend_kwargs)
+
             if leg is not None:
                 leg.draggable(state=True)
         
