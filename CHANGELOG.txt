@@ -1,3 +1,7 @@
+1.0.2
+=====
+- Bugfix (Issue #5 - https://github.com/HamsterHuey/easyplot/issues/5). Fixed AttributeError when setting useOffset=False for plots containing axes with non ScalarFormatters.
+
 1.0.1
 =====
 - Updated docs to describe format string argument
@@ -17,5 +21,5 @@ First public release
 
 1.0.0b1
 =======
-Initial Beta release. 
+Initial Beta release.
 - Modified setup.py and MANIFEST.in and fixed packaging bugs for PyPI

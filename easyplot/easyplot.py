@@ -140,7 +140,11 @@ class EasyPlot(object):
 
         ax, fig = self.kwargs['ax'], self.kwargs['fig']
         
-        ax.ticklabel_format(useOffset=False) # Prevent offset notation in plots
+        # Prevent offset notation in plots
+        if type(ax.yaxis.get_major_formatter()) == mpl.ticker.ScalarFormatter:
+            ax.ticklabel_format(useOffset=False, axis='y')
+        if type(ax.xaxis.get_major_formatter()) == mpl.ticker.ScalarFormatter:
+            ax.ticklabel_format(useOffset=False, axis='x')
 
         # Apply axes functions if present in kwargs
         for kwarg in self.kwargs:
