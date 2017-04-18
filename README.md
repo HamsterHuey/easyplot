@@ -1,5 +1,5 @@
 
-#easyplot
+# easyplot
 **easyplot:** A matplotlib wrapper written in Python to enable fast and easy
 creation of reusable plots.
 
@@ -25,7 +25,7 @@ This document is also viewable online as an IPython Notebook:
 
 <a name="sections"></a>
 
-##Sections
+## Sections
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Motivation and Background](#motivation)
@@ -50,7 +50,7 @@ This document is also viewable online as an IPython Notebook:
 
 <a name="requirements"></a>
 
-##Requirements
+## Requirements
 - Python 2.7.2+
 - matplotlib
 
@@ -62,7 +62,7 @@ matplotlib.
 
 <a name="installation"></a>
 
-#Installation
+# Installation
 [[back to section overview](#sections)]
 
 You can use the following commands to install EasyPlot:
@@ -85,7 +85,7 @@ or
 
 <a name="motivation"></a>
 
-#Motivation and background
+# Motivation and background
 [[back to section overview](#sections)]
 
 Setting up aesthetically pleasing plots with plot titles, axes labels, etc
@@ -161,7 +161,7 @@ eplot.iter_plot(x, y_dict, linestyle=linestyle_dict, marker=marker_dict,
 
 <a name="features"></a>
 
-#Features
+# Features
 [[back to section overview](#sections)]
 - Access to a large number of the most used matplotlib plot parameters under a
 unified wrapper class
@@ -177,7 +177,7 @@ plot customization
 
 <a name="documentation"></a>
 
-#Documentation
+# Documentation
 [[back to section overview](#sections)]
 
 EasyPlot consists of an `EasyPlot` class to create `EasyPlot()` objects in order
@@ -331,7 +331,7 @@ bbox_to_anchor : The bbox that the legend will be anchored. Tuple of
 
 <a name="interactive_mode"></a>
 
-##A note about interactive plotting mode in matplotlib
+## A note about interactive plotting mode in matplotlib
 It is strongly recommended that `EasyPlot` be used in a Python/IPython shell
 with interactive matplotlib plotting turned on (`matplotlib.pyplot.ion()` turns
 this on). This provides the maximum flexibility when plotting with `EasyPlot`
@@ -349,7 +349,7 @@ supported in this mode (user can call `plt.draw()` instead)
 
 <a name="usage"></a>
 
-#Usage and Examples
+# Usage and Examples
 [[back to section overview](#sections)]
 
 ```python
@@ -376,7 +376,7 @@ eplot = EasyPlot(x, x**2, 'g--o', label=r"$y = x^2$", showlegend=True, xlabel='x
 
 <a name="multiple_plots"></a>
 
-##Multiple plots in same figure (Interactive)
+## Multiple plots in same figure (Interactive)
 [[back to section overview](#sections)]
 
 ```python
@@ -392,7 +392,7 @@ eplot.add_plot(x, 0.15*x**3, label='$y = 0.15x^3$', c='c', ls='-', marker='D')
 
 <a name="easyplot_template"></a>
 
-##Using EasyPlot object as template for new plots
+## Using EasyPlot object as template for new plots
 [[back to section overview](#sections)]
 
 The previous example defined an `EasyPlot` object `eplot` with various plot
@@ -491,7 +491,7 @@ axis='both', **kwargs)` where `**kwargs` are passed to linespec of grid lines
 
 <a name="log_linear_scale"></a>
 
-##Log/Linear/Symlog plots
+## Log/Linear/Symlog plots
 [[back to section overview](#sections)]
 
 Plot parameters `xscale` and `yscale` can be passed to easyplot instances with
@@ -507,7 +507,7 @@ eplot.grid(which='minor', axis='both')
 
 <a name="colorcycle"></a>
 
-##Modifying Plot color cycle
+## Modifying Plot color cycle
 [[back to section overview](#sections)]
 
 easyplot provides the `colorcycle` plot parameter to specify the plot color
@@ -537,7 +537,7 @@ for index in range(8):
 
 <a name="iter_plot"></a>
 
-##Multiple plots in same figure iteratively using iter_plot
+## Multiple plots in same figure iteratively using iter_plot
 [[back to section overview](#sections)]
 
 The `EasyPlot` class has a very useful `iter_plot()` method to iterate through
@@ -615,7 +615,7 @@ eplot.iter_plot(x_list, y_list, mode='array', linestyle=linestyle_list, marker=m
 
 <a name="advanced_plotting"></a>
 
-#Advanced plotting
+# Advanced plotting
 [[back to section overview](#sections)]
 
 `EasyPlot` objects provide access to their `figure` and `axes` objects via the
@@ -632,7 +632,7 @@ objects in order to update the plot display with the latest changes.**
 
 <a name="subplots"></a>
 
-##Using easyplot with subplots
+## Using easyplot with subplots
 [[back to section overview](#sections)]
 
 To create figures with subplots while taking advantage of an easyplot instance,
@@ -675,7 +675,7 @@ fig.tight_layout()
 
 <a name="ax_mods"></a>
 
-##Custom plot modifications via axes instance
+## Custom plot modifications via axes instance
 [[back to section overview](#sections)]
 
 ```python
